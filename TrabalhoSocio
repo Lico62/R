@@ -52,14 +52,14 @@ tabela5 <- as.data.frame(tabela5)
 tabela6 <- as.data.frame(tabela6)
 
 #limpando das tabelas quaisquer respostas com frequência inferior a 7#
-tabela1 <- subset(tabela1, Freq>7)
-tabela2 <- subset(tabela2, Freq>7)
+tabela1 <- subset(tabela1, Freq>4)
+tabela2 <- subset(tabela2, Freq>4)
 
-tabela3 <- subset(tabela3, Freq>7)
-tabela4 <- subset(tabela4, Freq>7)
+tabela3 <- subset(tabela3, Freq>4)
+tabela4 <- subset(tabela4, Freq>4)
 
-tabela5 <- subset(tabela5, Freq>7)
-tabela6 <- subset(tabela6, Freq>7)
+tabela5 <- subset(tabela5, Freq>4)
+tabela6 <- subset(tabela6, Freq>4)
 
 #visualizando pra ver se está tudo correto#
 View(tabela1)
