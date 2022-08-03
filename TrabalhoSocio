@@ -1,0 +1,79 @@
+#carregando todas as bibliotecas que vou usar#
+
+library(rio)
+library(xlsx)
+
+#retirando fatores do dataframe original#
+desempenhoescolar <- as.list(dataset$`Como você avaliaria seu desempenho escolar?`)
+opiniaoconstituicao <- as.list(dataset$`Na sua opinião, a Constituição brasileira é`)
+meiodecomunicacao <- as.list(dataset$`Por quais meios de comunicação você normalmente costuma se informar?`)
+reformaconstitucional <- as.list(dataset$`Você acha necessário uma reformulação constitucional?`)
+zona <- as.list(dataset$`Você mora na:`)
+
+#criando o dataframe que será utilizado para a pesquisa#
+data <- cbind(desempenhoescolar,opiniaoconstituicao,meiodecomunicacao,reformaconstitucional,zona)
+data <- as.data.frame(data)
+
+#mudando a classe dos dados para que os comandos funcionem#
+data$desempenhoescolar <- as.character(data$desempenhoescolar)
+data$opiniaoconstituicao <- as.character(data$opiniaoconstituicao)
+data$meiodecomunicacao <- as.character(data$meiodecomunicacao)
+data$reformaconstitucional<- as.character(data$reformaconstitucional)
+data$zona <- as.character(data$zona)
+
+#gerando as tabelas da pesquisa#
+tabela1 <- table(data$desempenhoescolar,data$opiniaoconstituicao)
+tabela2 <- table(data$desempenhoescolar,data$reformaconstitucional)
+
+tabela3 <- table(data$meiodecomunicacao,data$opiniaoconstituicao)
+tabela4 <- table(data$meiodecomunicacao,data$reformaconstitucional)
+
+tabela5 <- table(data$zona,data$opiniaoconstituicao)
+tabela6 <- table(data$zona,data$reformaconstitucional)
+
+#mudando o nome das colunas#
+colnames(tabela1) <- c("Desempenho Escolar", "Opinião Constituição", "Frequência")
+colnames(tabela2) <- c("Desempenho Escolar", "Reforma Constitucional", "Frequência")
+
+colnames(tabela3) <- c("Meio de Comunicação", "Opinião Constituição", "Frequência")
+colnames(tabela4) <- c("Meio de Comunicação", "Reforma Constitucional", "Frequência")
+
+colnames(tabela5) <- c("Zona", "Opinião Constituição", "Frequência")
+colnames(tabela6) <- c("Zona", "Reforma Constitucional", "Frequência")
+
+#mudando as classes das tabelas para que os comandos funcionem#
+tabela1 <- as.data.frame(tabela1)
+tabela2 <- as.data.frame(tabela2)
+
+tabela3 <- as.data.frame(tabela3)
+tabela4 <- as.data.frame(tabela4)
+
+tabela5 <- as.data.frame(tabela5)
+tabela6 <- as.data.frame(tabela6)
+
+#limpando das tabelas quaisquer respostas com frequência inferior a 7#
+tabela1 <- subset(tabela1, Freq>7)
+tabela2 <- subset(tabela2, Freq>7)
+
+tabela3 <- subset(tabela3, Freq>7)
+tabela4 <- subset(tabela4, Freq>7)
+
+tabela5 <- subset(tabela5, Freq>7)
+tabela6 <- subset(tabela6, Freq>7)
+
+#visualizando pra ver se está tudo correto#
+View(tabela1)
+View(tabela2)
+View(tabela3)
+View(tabela4)
+View(tabela5)
+View(tabela6)
+
+#Exportando as tabelas#
+
+export(tabela1, "Tabela1.xlsx")
+export(tabela2, "Tabela2.xlsx")
+export(tabela3, "Tabela3.xlsx")
+export(tabela4, "Tabela4.xlsx")
+export(tabela5, "Tabela5.xlsx")
+export(tabela6, "Tabela6.xlsx")
